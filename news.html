@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -16,9 +16,13 @@
             background-color: #f4f4f4;
         }
         .navbar {
-            background-color: #333;
+            background-color: #4CAF50;
             color: white;
             padding: 1rem;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
         }
         .navbar-container {
             display: flex;
@@ -39,8 +43,9 @@
             left: -100%;
             width: 100%;
             height: calc(100% - 60px);
-            background-color: #333;
+            background-color: #4CAF50;
             transition: 0.3s;
+            overflow-y: auto;
         }
         .nav-links.active {
             left: 0;
@@ -65,7 +70,7 @@
         .content {
             padding: 2rem;
             max-width: 1200px;
-            margin: 0 auto;
+            margin: 80px auto 0;
         }
         .news-grid {
             display: grid;
@@ -90,6 +95,12 @@
             margin-top: 0;
             font-size: 1.2rem;
             margin-bottom: 0.5rem;
+            color: #4CAF50;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 1.5rem;
+            color: #4CAF50;
         }
         @media screen and (min-width: 768px) {
             .hamburger {
@@ -121,8 +132,8 @@
         <div class="navbar-container">
             <div class="logo">
                 <svg width="40" height="40" viewBox="0 0 50 50">
-                    <circle cx="25" cy="25" r="20" fill="#4CAF50"/>
-                    <text x="25" y="30" font-family="Arial" font-size="20" fill="white" text-anchor="middle">HC</text>
+                    <circle cx="25" cy="25" r="20" fill="#fff"/>
+                    <text x="25" y="30" font-family="Arial" font-size="20" fill="#4CAF50" text-anchor="middle">HC</text>
                 </svg>
             </div>
             <div class="nav-links">
@@ -130,6 +141,8 @@
                 <a href="contacts.html">Contactos</a>
                 <a href="leads.html">Leads</a>
                 <a href="news.html">News</a>
+                <a href="inventory.html">**Inventory</a>
+                <a href="servidores.html">**PublicServer</a>
             </div>
             <div class="hamburger">
                 <div></div>
@@ -190,4 +203,8 @@
         const navLinks = document.querySelector('.nav-links');
 
         hamburger.addEventListener('click', () => {
-            navLinks.classList.
+            navLinks.classList.toggle('active');
+        });
+    </script>
+</body>
+</html>

@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Leads - Helping Connect</title>
+    <title>Inventario - Helping Connect</title>
     <style>
         * {
             box-sizing: border-box;
@@ -16,9 +16,13 @@
             background-color: #f4f4f4;
         }
         .navbar {
-            background-color: #333;
+            background-color: #4CAF50;
             color: white;
             padding: 1rem;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
         }
         .navbar-container {
             display: flex;
@@ -39,8 +43,9 @@
             left: -100%;
             width: 100%;
             height: calc(100% - 60px);
-            background-color: #333;
+            background-color: #4CAF50;
             transition: 0.3s;
+            overflow-y: auto;
         }
         .nav-links.active {
             left: 0;
@@ -65,16 +70,18 @@
         .content {
             padding: 2rem;
             max-width: 600px;
-            margin: 0 auto;
-        }
-        form {
+            margin: 80px auto 0;
             background-color: white;
-            padding: 2rem;
             border-radius: 5px;
             box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
+        h1 {
+            text-align: center;
+            margin-bottom: 1.5rem;
+            color: #4CAF50;
+        }
         .form-group {
-            margin-bottom: 1rem;
+            margin-bottom: 1.5rem;
         }
         label {
             display: block;
@@ -125,8 +132,8 @@
         <div class="navbar-container">
             <div class="logo">
                 <svg width="40" height="40" viewBox="0 0 50 50">
-                    <circle cx="25" cy="25" r="20" fill="#4CAF50"/>
-                    <text x="25" y="30" font-family="Arial" font-size="20" fill="white" text-anchor="middle">HC</text>
+                    <circle cx="25" cy="25" r="20" fill="#fff"/>
+                    <text x="25" y="30" font-family="Arial" font-size="20" fill="#4CAF50" text-anchor="middle">HC</text>
                 </svg>
             </div>
             <div class="nav-links">
@@ -134,7 +141,7 @@
                 <a href="contacts.html">Contactos</a>
                 <a href="leads.html">Leads</a>
                 <a href="news.html">News</a>
-                <a href="inventory.html">**Inventory</a>
+                <a href="inventory.html">**Inventario</a>
                 <a href="servidores.html">**PublicServer</a>
             </div>
             <div class="hamburger">
@@ -144,41 +151,44 @@
             </div>
         </div>
     </nav>
+
     <div class="content">
-        <h1>Formulario de Leads</h1>
-        <form id="leadForm">
-            <div class="form-group">
-                <label for="name">Nombre:</label>
-                <input type="text" id="name" name="name" required>
-            </div>
-            <div class="form-group">
-                <label for="age">Edad:</label>
-                <input type="number" id="age" name="age" required>
-            </div>
-            <div class="form-group">
-                <label for="phone">Teléfono de contacto:</label>
-                <input type="tel" id="phone" name="phone" required>
-            </div>
-            <div class="form-group">
-                <label for="category">Categoría:</label>
-                <select id="category" name="category" required>
-                    <option value="">Seleccione una categoría</option>
-                    <option value="veteran">Veterano</option>
-                    <option value="homeless">Sin hogar</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="gender">Sexo:</label>
-                <select id="gender" name="gender" required>
-                    <option value="">Seleccione el sexo</option>
-                    <option value="male">Masculino</option>
-                    <option value="female">Femenino</option>
-                    <option value="other">Otro</option>
-                </select>
-            </div>
-            <button type="submit">Enviar</button>
-        </form>
+        <h1>Formulario de Inventario</h1>
+        
+        <div class="form-group">
+            <label for="numero-tarjeta">Número de tarjeta:</label>
+            <input type="text" id="numero-tarjeta" name="numero-tarjeta" placeholder="Ingrese el número de tarjeta">
+        </div>
+
+        <div class="form-group">
+            <label for="organizacion">Organización:</label>
+            <select id="organizacion" name="organizacion">
+                <option value="">Seleccione una organización</option>
+                <option value="policia-abc">Cuartel de policía ABC</option>
+                <option value="bomberos">Bomberos</option>
+                <option value="hospital-xyz">Hospital XYZ</option>
+                <option value="escuela-123">Escuela 123</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="fecha">Fecha:</label>
+            <input type="date" id="fecha" name="fecha">
+        </div>
+
+        <div class="form-group">
+            <label for="estado">Estado:</label>
+            <select id="estado" name="estado">
+                <option value="">Seleccione un estado</option>
+                <option value="disponible">Disponible</option>
+                <option value="asignada">Asignada</option>
+                <option value="anulada">Anulada</option>
+            </select>
+        </div>
+
+        <button onclick="guardarRegistro()">Grabar</button>
     </div>
+
     <script>
         const hamburger = document.querySelector('.hamburger');
         const navLinks = document.querySelector('.nav-links');
@@ -187,23 +197,9 @@
             navLinks.classList.toggle('active');
         });
 
-        document.getElementById('leadForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            if ("geolocation" in navigator) {
-                navigator.geolocation.getCurrentPosition(function(position) {
-                    var formData = new FormData(e.target);
-                    formData.append('latitude', position.coords.latitude);
-                    formData.append('longitude', position.coords.longitude);
-                    console.log('Form data:', Object.fromEntries(formData));
-                    alert('Formulario enviado con éxito (ver consola para detalles)');
-                }, function(error) {
-                    console.error('Error obteniendo la ubicación:', error);
-                    alert('No se pudo obtener la ubicación. El formulario se enviará sin coordenadas.');
-                });
-            } else {
-                alert('Geolocalización no soportada en este dispositivo.');
-            }
-        });
+        function guardarRegistro() {
+            alert("Registro guardado");
+        }
     </script>
 </body>
 </html>
