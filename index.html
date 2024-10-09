@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Helping Connect</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            background-color: #f4f4f4;
+        }
+        .navbar {
+            background-color: #333;
+            color: white;
+            padding: 1rem;
+        }
+        .navbar-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .logo svg {
+            width: 40px;
+            height: 40px;
+        }
+        .nav-links {
+            display: flex;
+            flex-direction: column;
+            position: fixed;
+            top: 60px;
+            left: -100%;
+            width: 100%;
+            height: calc(100% - 60px);
+            background-color: #333;
+            transition: 0.3s;
+        }
+        .nav-links.active {
+            left: 0;
+        }
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            padding: 1rem;
+            text-align: center;
+        }
+        .hamburger {
+            display: block;
+            cursor: pointer;
+        }
+        .hamburger div {
+            width: 25px;
+            height: 3px;
+            background-color: white;
+            margin: 5px;
+            transition: 0.3s;
+        }
+        .content {
+            padding: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        @media screen and (min-width: 768px) {
+            .hamburger {
+                display: none;
+            }
+            .nav-links {
+                position: static;
+                flex-direction: row;
+                height: auto;
+                width: auto;
+                background-color: transparent;
+            }
+            .nav-links a {
+                padding: 0 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-container">
+            <div class="logo">
+                <svg width="40" height="40" viewBox="0 0 50 50">
+                    <circle cx="25" cy="25" r="20" fill="#4CAF50"/>
+                    <text x="25" y="30" font-family="Arial" font-size="20" fill="white" text-anchor="middle">HC</text>
+                </svg>
+            </div>
+            <div class="nav-links">
+                <a href="index.html">Inicio</a>
+                <a href="contacts.html">Contactos</a>
+                <a href="leads.html">Leads</a>
+                <a href="news.html">News</a>
+            </div>
+            <div class="hamburger">
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+        </div>
+    </nav>
+    <div class="content">
+        <h1>Bienvenido a Helping Connect</h1>
+        <p>Esta es la página principal de nuestra plataforma para ayudar a veteranos y personas sin hogar.</p>
+    </div>
+    <script>
+        const hamburger = document.querySelector('.hamburger');
+        const navLinks = document.querySelector('.nav-links');
+
+        hamburger.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+    </script>
+</body>
+</html>

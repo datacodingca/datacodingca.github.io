@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>News - Helping Connect</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            background-color: #f4f4f4;
+        }
+        .navbar {
+            background-color: #333;
+            color: white;
+            padding: 1rem;
+        }
+        .navbar-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .logo svg {
+            width: 40px;
+            height: 40px;
+        }
+        .nav-links {
+            display: flex;
+            flex-direction: column;
+            position: fixed;
+            top: 60px;
+            left: -100%;
+            width: 100%;
+            height: calc(100% - 60px);
+            background-color: #333;
+            transition: 0.3s;
+        }
+        .nav-links.active {
+            left: 0;
+        }
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            padding: 1rem;
+            text-align: center;
+        }
+        .hamburger {
+            display: block;
+            cursor: pointer;
+        }
+        .hamburger div {
+            width: 25px;
+            height: 3px;
+            background-color: white;
+            margin: 5px;
+            transition: 0.3s;
+        }
+        .content {
+            padding: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .news-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+        }
+        .card {
+            background: white;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        .card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        .card-content {
+            padding: 1rem;
+        }
+        .card h2 {
+            margin-top: 0;
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+        @media screen and (min-width: 768px) {
+            .hamburger {
+                display: none;
+            }
+            .nav-links {
+                position: static;
+                flex-direction: row;
+                height: auto;
+                width: auto;
+                background-color: transparent;
+            }
+            .nav-links a {
+                padding: 0 1rem;
+            }
+            .news-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        @media screen and (min-width: 1024px) {
+            .news-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-container">
+            <div class="logo">
+                <svg width="40" height="40" viewBox="0 0 50 50">
+                    <circle cx="25" cy="25" r="20" fill="#4CAF50"/>
+                    <text x="25" y="30" font-family="Arial" font-size="20" fill="white" text-anchor="middle">HC</text>
+                </svg>
+            </div>
+            <div class="nav-links">
+                <a href="index.html">Inicio</a>
+                <a href="contacts.html">Contactos</a>
+                <a href="leads.html">Leads</a>
+                <a href="news.html">News</a>
+            </div>
+            <div class="hamburger">
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+        </div>
+    </nav>
+    <div class="content">
+        <h1>Noticias y Eventos</h1>
+        <div class="news-grid">
+            <div class="card">
+                <img src="https://picsum.photos/seed/event1/400/200" alt="Evento de Recaudación de Fondos">
+                <div class="card-content">
+                    <h2>Evento de Recaudación de Fondos</h2>
+                    <p>Únete a nosotros para nuestro evento anual de recaudación de fondos para veteranos sin hogar. Este año, nuestro objetivo es recaudar $100,000 para proporcionar viviendas temporales y servicios de apoyo.</p>
+                </div>
+            </div>
+            <div class="card">
+                <img src="https://picsum.photos/seed/news1/400/200" alt="Nueva Iniciativa de Vivienda">
+                <div class="card-content">
+                    <h2>Nueva Iniciativa de Vivienda</h2>
+                    <p>El gobierno local anuncia una nueva iniciativa para proporcionar viviendas a veteranos sin hogar. El programa tiene como objetivo proporcionar 500 nuevas unidades de vivienda en los próximos dos años.</p>
+                </div>
+            </div>
+            <div class="card">
+                <img src="https://picsum.photos/seed/event2/400/200" alt="Taller de Empleo">
+                <div class="card-content">
+                    <h2>Taller de Empleo</h2>
+                    <p>Participa en nuestro taller gratuito de preparación para el empleo dirigido a veteranos en busca de trabajo. Aprende a crear un currículum efectivo y mejora tus habilidades de entrevista.</p>
+                </div>
+            </div>
+            <div class="card">
+                <img src="https://picsum.photos/seed/news2/400/200" alt="Donación de Empresa Local">
+                <div class="card-content">
+                    <h2>Donación de Empresa Local</h2>
+                    <p>La empresa local TechSolutions ha donado $50,000 para apoyar nuestros programas de capacitación en tecnología para veteranos. Esta generosa contribución permitirá ampliar nuestros cursos de programación y diseño web.</p>
+                </div>
+            </div>
+            <div class="card">
+                <img src="https://picsum.photos/seed/event3/400/200" alt="Feria de Salud Comunitaria">
+                <div class="card-content">
+                    <h2>Feria de Salud Comunitaria</h2>
+                    <p>No te pierdas nuestra próxima Feria de Salud Comunitaria, donde ofreceremos exámenes médicos gratuitos, vacunas contra la gripe y asesoramiento nutricional para veteranos y personas sin hogar.</p>
+                </div>
+            </div>
+            <div class="card">
+                <img src="https://picsum.photos/seed/news3/400/200" alt="Éxito del Programa de Mentores">
+                <div class="card-content">
+                    <h2>Éxito del Programa de Mentores</h2>
+                    <p>Nuestro programa de mentores para veteranos ha ayudado a 100 participantes a encontrar empleo estable en el último año. Descubre cómo puedes involucrarte como mentor o mentee.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        const hamburger = document.querySelector('.hamburger');
+        const navLinks = document.querySelector('.nav-links');
+
+        hamburger.addEventListener('click', () => {
+            navLinks.classList.

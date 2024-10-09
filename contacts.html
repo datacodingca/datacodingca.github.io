@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contactos - Helping Connect</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            background-color: #f4f4f4;
+        }
+        .navbar {
+            background-color: #333;
+            color: white;
+            padding: 1rem;
+        }
+        .navbar-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .logo svg {
+            width: 40px;
+            height: 40px;
+        }
+        .nav-links {
+            display: flex;
+            flex-direction: column;
+            position: fixed;
+            top: 60px;
+            left: -100%;
+            width: 100%;
+            height: calc(100% - 60px);
+            background-color: #333;
+            transition: 0.3s;
+        }
+        .nav-links.active {
+            left: 0;
+        }
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            padding: 1rem;
+            text-align: center;
+        }
+        .hamburger {
+            display: block;
+            cursor: pointer;
+        }
+        .hamburger div {
+            width: 25px;
+            height: 3px;
+            background-color: white;
+            margin: 5px;
+            transition: 0.3s;
+        }
+        .content {
+            padding: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .category {
+            background-color: white;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+            padding: 1rem;
+        }
+        .category h2 {
+            margin-bottom: 1rem;
+        }
+        .add-contacts-btn {
+            display: block;
+            width: 100%;
+            padding: 0.5rem;
+            background-color: #4CAF50;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            text-align: center;
+            font-size: 1rem;
+            cursor: pointer;
+            border: none;
+            margin-bottom: 1rem;
+        }
+        .contact-item {
+            background-color: #f9f9f9;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            border-radius: 5px;
+        }
+        @media screen and (min-width: 768px) {
+            .hamburger {
+                display: none;
+            }
+            .nav-links {
+                position: static;
+                flex-direction: row;
+                height: auto;
+                width: auto;
+                background-color: transparent;
+            }
+            .nav-links a {
+                padding: 0 1rem;
+            }
+            .category {
+                padding: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-container">
+            <div class="logo">
+                <svg width="40" height="40" viewBox="0 0 50 50">
+                    <circle cx="25" cy="25" r="20" fill="#4CAF50"/>
+                    <text x="25" y="30" font-family="Arial" font-size="20" fill="white" text-anchor="middle">HC</text>
+                </svg>
+            </div>
+            <div class="nav-links">
+                <a href="index.html">Inicio</a>
+                <a href="contacts.html">Contactos</a>
+                <a href="leads.html">Leads</a>
+                <a href="news.html">News</a>
+            </div>
+            <div class="hamburger">
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+        </div>
+    </nav>
+    <div class="content">
+        <h1>Contactos por Categoría</h1>
+        <div id="categories-list"></div>
+    </div>
+    <script>
+        const hamburger = document.querySelector('.hamburger');
+        const navLinks = document.querySelector('.nav-links');
+
+        hamburger.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+
+        // Contactos agrupados por categoría
+        const categories = {
+            "Veteran": [
+                { name: "John Doe", phone: "+1234567890", email: "john@example.com", url: "www.johnveteran.com" },
+                { name: "Jane Smith", phone: "+1987654321", email: "jane@example.com", url: "www.janeveteran.com" },
+                { name: "Bob Johnson", phone: "+1122334455", email: "bob@example.com", url: "www.bobveteran.com" }
+            ],
+            "Homeless": [
+                { name: "Alice Brown", phone: "+1234509876", email: "alice@example.com", url: "www.alicehomeless.org" },
+                { name: "Charlie Davis", phone: "+1987600321", email: "charlie@example.com", url: "www.charliehomeless.org" },
+                { name: "Eva White", phone: "+1122338765", email: "eva@example.com", url: "www.evahomeless.org" }
+            ]
+        };
+
+        function generateVCardData(contact) {
+            return `BEGIN:VCARD
+VERSION:3.0
+FN:${contact.name}
+TEL:${contact.phone}
+EMAIL:${contact.email}
+URL:${contact.url}
+END:VCARD`;
+        }
+
+        function generateMultipleVCards(contacts) {
+            return contacts.map(generateVCardData).join('\n');
+        }
+
+        function createCategoryContactLink(category) {
+            const vCardData = generateMultipleVCards(categories[category]);
+            const encodedData = encodeURIComponent(vCardData);
+            const href = `data:text/vcard;charset=utf-8,${encodedData}`;
+            
+            const addButton = document.createElement('a');
+            addButton.className = 'add-contacts-btn';
+            addButton.textContent = `Add All ${category} Contacts`;
+            addButton.href = href;
+            addButton.download = `${category}_contacts.vcf`;
+            return addButton;
+        }
+
+        function displayContacts() {
+            const categoriesListElement = document.getElementById('categories-list');
+            
+            for (const [category, contacts] of Object.entries(categories)) {
+                const categoryElement = document.createElement('div');
+                categoryElement.className = 'category';
+                
+                const categoryTitle = document.createElement('h2');
+                categoryTitle.textContent = category;
+                categoryElement.appendChild(categoryTitle);
+                
+                categoryElement.appendChild(createCategoryContactLink(category));
+                
+                contacts.forEach(contact => {
+                    const contactElement = document.createElement('div');
+                    contactElement.className = 'contact-item';
+                    contactElement.innerHTML = `<strong>${contact.name}</strong><br>
+                                                Tel: ${contact.phone}<br>
+                                                Email: ${contact.email}<br>
+                                                URL: <a href="http://${contact.url}" target="_blank">${contact.url}</a>`;
+                    categoryElement.appendChild(contactElement);
+                });
+                
+                categoriesListElement.appendChild(categoryElement);
+            }
+        }
+
+        // Inicializar la página
+        window.onload = displayContacts;
+    </script>
+</body>
+</html>
