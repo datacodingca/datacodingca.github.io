@@ -68,7 +68,7 @@
             transition: 0.3s;
         }
         .content {
-            padding: 2rem;
+            padding: 1rem;
             max-width: 1200px;
             margin: 80px auto 0;
             background-color: white;
@@ -87,7 +87,7 @@
             margin-top: 1rem;
         }
         th, td {
-            padding: 0.75rem;
+            padding: 0.5rem;
             text-align: left;
             border-bottom: 1px solid #ddd;
         }
@@ -100,10 +100,30 @@
             padding: 0.5rem;
             border: 1px solid #ddd;
             border-radius: 4px;
-            font-size: 1rem;
+            font-size: 0.9rem;
         }
         .id-no-editable {
             background-color: #f2f2f2;
+            font-size: 0.9rem;
+        }
+        @media screen and (max-width: 767px) {
+            table {
+                font-size: 0.9rem;
+            }
+            th, td {
+                padding: 0.4rem;
+            }
+            input, select {
+                padding: 0.4rem;
+                font-size: 0.8rem;
+            }
+            .id-no-editable {
+                font-size: 0.8rem;
+            }
+            th:nth-child(2), td:nth-child(2),
+            th:nth-child(3), td:nth-child(3) {
+                min-width: 120px;
+            }
         }
         @media screen and (min-width: 768px) {
             .hamburger {
@@ -137,7 +157,7 @@
                 <a href="leads.html">Leads</a>
                 <a href="news.html">News</a>
                 <a href="inventory.html">**Inventory</a>
-                <a href="servidores.html">**Servidores</a>
+                <a href="servidores.html">**PublicServer</a>
                 <a href="activacion.html">***Activación</a>
             </div>
             <div class="hamburger">
@@ -173,7 +193,7 @@
                                         <option value="eliminado">Eliminado</option>
                                     </select>
                                 </td>
-                                <td><input type="text" placeholder="Ingrese una observación"></td>
+                                <td><input type="text" placeholder="Observación"></td>
                             </tr>
                         `);
                     }
